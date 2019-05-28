@@ -1,0 +1,4 @@
+module Print3 where
+
+myGreeting :: String
+myGreeting - "hello" ++ " world!"
