@@ -42,5 +42,49 @@ nums x =
     GT -> 1
     EQ -> 0
   
+----- * Let's write code * -----
 
+-- q1 a)
 
+tensDigit :: Integral a => a -> a
+tensDigit x = xLast `mod` 10
+  where (xLast, _) = x `divMod` 10
+
+-- q1 c)
+
+hundredsDigit :: Integral a => a -> a 
+hundredsDigit x = d2
+  where d  = x `div` 100
+        d2 = d `mod` 10
+
+-- q2. Have to use a case expression
+
+foldBool :: a -> a -> Bool -> a
+foldBool x y b = case b of
+  False -> x
+  True -> y
+
+-- q2. Have to use guards
+
+foldBool2 :: a -> a -> Bool -> a
+foldBool2 x y b
+  | b         = y
+  | otherwise = x
+
+-- q3
+
+g :: (a -> b) -> (a, c) -> (b, c)
+g aToB (a, c) = (aToB a, c)
+
+-- q4. Must be pointfree
+
+roundTrip :: (Show a, Read a) => a -> a
+roundTrip = read . show
+
+-- q5 
+roundTrip' :: (Show a, Read b) => a -> b
+roundTrip' a = read (show a) 
+
+main = do
+  print (roundTrip' 4 :: Int)
+  print (id 4)
