@@ -21,23 +21,24 @@ theDatabase =
 
 -- ***** exercises: database processing *****
 
--- q1: filter DbDate alues and return a list of the UTCTime values inside them
+-- q1: filter DbDate values and return a list of the UTCTime values inside them
 filterDbDate :: [DatabaseItem] -> [UTCTime]
-filterDbDate = undefined
+filterDbDate []            = []
+filterDbDate (DbDate x:xs) = x : filterDbDate xs
+filterDbDate (_:xs)        = filterDbDate xs
 
 -- q2: filter DbNumber values and return a list of the Integer values inside them
 filterDbNumber :: [DatabaseItem] -> [Integer]
-filterDbNumber = undefined
+filterDbNumber xs = [a | (DbNumber a) <- xs]
 
 -- q3: get the most recent date
 mostRecent :: [DatabaseItem] -> UTCTime
-mostRecent = undefined
+mostRecent xs = maximum $ filterDbDate xs
 
 -- q4: sum all of the DbNumber values
 sumDb :: [DatabaseItem] -> Integer
-sumDb xs = undefined
--- sumDb xs = foldr (+) 0 xs
+sumDb xs = sum $ filterDbNumber xs
 
 -- q5: calculate the average of the DbNumber values
 avgDb :: [DatabaseItem] -> Double
-avgDb = undefined
+avgDb xs = (fromIntegral $ sumDb xs) / (fromIntegral $ length $ filterDbNumber xs)
