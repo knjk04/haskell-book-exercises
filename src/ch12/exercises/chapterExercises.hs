@@ -72,3 +72,47 @@ integerToNat n | n < 0     = Nothing
 integerToNat' :: Integer -> Nat
 integerToNat' 0 = Zero
 integerToNat' n = Succ (integerToNat' (n-1))
+
+-- *** Small library for Maybe ***
+
+-- 1 a)
+isJust :: Maybe a -> Bool
+isJust Nothing = False
+isJust _       = True
+
+-- 1 b)
+isNothing :: Maybe a -> Bool
+isNothing Nothing = True
+isNothing _       = False
+
+-- 2)  Maybe catamorphism
+maybeCatamorphism :: b -> (a -> b) -> Maybe a -> b
+maybeCatamorphism x _ Nothing  = x
+maybeCatamorphism _ f (Just y) = f y
+
+-- 3) "provide a fallback value"
+fromMaybe :: a -> Maybe a -> a
+fromMaybe x Nothing  = x
+fromMaybe _ (Just y) = y
+
+-- 4 a) Maybe head
+listToMaybe :: [a] -> Maybe a
+listToMaybe []     = Nothing
+listToMaybe (x:_)  = Just x
+
+-- 4 b) Construct a list by consing an element onto an empty list
+maybeToList :: Maybe a -> [a]
+maybeToList Nothing  = []
+maybeToList (Just x) = [x]
+
+-- 5) remove Nothing values from a list
+catMaybes :: [Maybe a] -> [a]
+catMaybes []           = []
+catMaybes (Nothing:xs) = catMaybes xs
+catMaybes (Just x:xs)  = x : catMaybes xs
+
+-- 6) Note: I've added in the Eq constraint
+flipMaybe :: Eq a => [Maybe a] -> Maybe [a]
+flipMaybe xs | any (== Nothing) xs  || null xs = Nothing
+             -- | otherwise                       = Just $ map (fromMaybe (head xs)) xs
+             | otherwise                       = Just $ catMaybes xs
