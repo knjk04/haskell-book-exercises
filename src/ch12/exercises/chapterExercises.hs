@@ -153,5 +153,31 @@ either' _ g (Right x) = g x
 
 
 -- *** write your own iterate and unfoldr *** 
+-- Example usage (taken from book): Prelude> take 10 $ iterate (+1) 0
 myIterate :: (a -> a) -> a -> [a]
 myIterate f x = x : myIterate f (f x)
+
+myUnfoldr :: (b -> Maybe (a, b)) -> b -> [a]
+myUnfoldr f b = a : myUnfoldr f b'
+  where Just (a, b') = f b
+
+-- 3) rewrite myIterate using myUnfoldr
+-- taken from https://github.com/gvolpe/haskell-book-exercises/blob/master/chapter12/exercises.hs
+betterIterate :: (a -> a) -> a -> [a]
+betterIterate f x = myUnfoldr (\a -> Just (a, f a)) x  
+
+data BinaryTree a =
+    Leaf
+  | Node (BinaryTree a) a (BinaryTree a)
+  deriving (Eq, Ord, Show)
+
+-- untested
+unfold :: (a -> Maybe (a, b, a)) -> a -> BinaryTree b
+unfold f x = Node (unfold f x) b (unfold f x)
+  where Just (a, b, a') = (f x)
+
+
+-- tree builder using unfold
+-- treeBuild :: Integer -> BinaryTree Integer
+-- treeBuild 0 = Leaf
+-- -- treeBuild n = Node (unfold treeBuild n) n (unfold treeBuild n)
