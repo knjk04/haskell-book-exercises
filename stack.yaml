@@ -17,9 +17,9 @@
 #
 # resolver: ./custom-snapshot.yaml
 # resolver: https://example.com/snapshots/2018-01-01.yaml
-# resolver: lts-13.23 
+resolver: lts-13.23 
 # changed to 12.10 to make it compatible with Haskell book
-resolver: lts-12.10
+# resolver: lts-12.10
 
 # User packages to be built.
 # Various formats can be used as shown in the example below.

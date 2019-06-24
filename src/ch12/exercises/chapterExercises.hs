@@ -116,3 +116,42 @@ flipMaybe :: Eq a => [Maybe a] -> Maybe [a]
 flipMaybe xs | any (== Nothing) xs  || null xs = Nothing
              -- | otherwise                       = Just $ map (fromMaybe (head xs)) xs
              | otherwise                       = Just $ catMaybes xs
+
+-- *** Small library for Either ***
+
+-- 1) return a list of Left elements using foldr
+-- foldr version from -- lefts' xs = foldr (\x -> if x == (Left _) then (x : []) else []) [] xs
+lefts' :: [Either a b] -> [a]
+-- lefts' []            = []
+-- lefts' (Left x : xs) = x : lefts' xs
+-- lefts' (_ : xs)      = lefts' xs
+lefts' = foldr f []
+  where f (Left a) xs  = a : xs
+        f (Right a) xs = xs
+
+-- 1) return a list of Right elements using foldr
+rights' :: [Either a b] -> [b]        
+rights' = foldr f []
+  where f (Left a)  xs = xs
+        f (Right a) xs = a : xs
+
+-- 3) Split Left and Right values
+partitionEithers' :: [Either a b] -> ([a], [b])
+partitionEithers' xs = (lefts' xs, rights' xs)
+
+-- 4)
+-- Example usage: eitherMaybe' (+1) (Right 2)
+eitherMaybe' :: (b -> c) -> Either a b -> Maybe c
+eitherMaybe' f (Right x) = Just $ f x
+eitherMaybe' f (Left _)  = Nothing
+
+-- 5) "general catamorphism for Either values"
+-- Example usage: eitherMaybe' (+1) (*3 ) (Right 2)
+either' :: (a -> c) -> (b -> c) -> Either a b -> c
+either' f _ (Left x)  = f x
+either' _ g (Right x) = g x
+
+
+-- *** write your own iterate and unfoldr *** 
+myIterate :: (a -> a) -> a -> [a]
+myIterate f x = x : myIterate f (f x)
