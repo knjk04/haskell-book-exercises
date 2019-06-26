@@ -60,6 +60,39 @@ genTuple = do
 genThreeple :: (Arbitrary a, Arbitrary b, Arbitrary c) => Gen (a, b, c)
 genThreeple = do
   a <- arbitrary
-  b <- aribitrary
+  b <- arbitrary
   c <- arbitrary
   return (a, b, c)
+
+genEither :: (Arbitrary a, Arbitrary b) => Gen (Either a b)
+genEither = do
+  a <- arbitrary
+  b <- arbitrary
+  elements [Left a, Right b]
+
+-- equal probability
+genMaybe :: Arbitrary a => Gen (Maybe a)
+genMaybe = do
+  a <- arbitrary
+  elements [Nothing, Just a]
+  
+-- get more Just values
+-- frequency :: [(Int, Gen a)] -> Gen a
+genMaybe' :: Arbitrary a => Gen (Maybe a)
+genMaybe' = do
+  a <- arbitrary
+  frequency [ (1, return Nothing)
+            , (3, return (Just a))]
+
+-- without hspec
+prop_additionGreater :: Int -> Bool
+prop_additionGreater x = x + 1 > x
+
+-- without hspec
+-- asserting something that isn't true (intentionally)
+prop_additionGreater' :: Int -> Bool
+prop_additionGreater' x = x + 0 > x
+
+runQc :: IO ()
+-- runQc = quickCheck prop_additionGreater
+runQc = quickCheck prop_additionGreater'
