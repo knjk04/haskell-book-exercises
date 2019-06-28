@@ -6,18 +6,13 @@ import Test.QuickCheck
 half x = x / 2
 
 -- "this property should hold"
+-- halfIdentity :: Double -> Double
 halfIdentity = (*2) . half
 
-identityGen :: (Arbitrary a, Num a) => Gen a
-identityGen = do
-  a <- arbitrary
-  return a
+prop_identity :: Double -> Bool
+prop_identity n = n == halfIdentity n
 
--- instance halfGen :: (Arbitrary a, Num a) => Arbitrary a where
---   arbitrary = identityGen
+test :: IO ()
+test = quickCheck prop_identity
 
--- instance (Arbitrary a, Num a) => Arbitrary a where
---   arbitrary = identityGen
 
-testHalfIdentity :: IO ()
-testHalfIdentity = quickCheck identityGen
