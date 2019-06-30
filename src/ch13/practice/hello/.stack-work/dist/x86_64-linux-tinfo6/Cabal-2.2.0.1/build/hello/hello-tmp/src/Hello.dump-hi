@@ -1,0 +1,85 @@
+
+==================== FINAL INTERFACE ====================
+2019-06-23 17:16:38.390524551 UTC
+
+interface main:Hello 8043
+  interface hash: b567e4b2445eae8b49bd4bc4373621a4
+  ABI hash: 2eddf07aa09054d64ddb98a7e8a1947c
+  export-list hash: bcf9cda1bf99128e8a52554811f96f4d
+  orphan hash: 693e9af84d3dfcc71e640e005bdc5e2e
+  flag hash: 8e5800d1d3354aa2bf3cf44f5deb1542
+  opt_hash: 14e536840aca4e889cad654e6f9b79c1
+  hpc_hash: 93b885adfe0da089cdf634904fd59f71
+  sig of: Nothing
+  used TH splices: False
+  where
+exports:
+  Hello.sayHello
+module dependencies:
+package dependencies: base-4.11.1.0* ghc-prim-0.5.2.0
+                      integer-gmp-1.0.2.0
+orphans: base-4.11.1.0:GHC.Float base-4.11.1.0:GHC.Base
+family instance modules: base-4.11.1.0:Control.Applicative
+                         base-4.11.1.0:Data.Functor.Const
+                         base-4.11.1.0:Data.Functor.Identity base-4.11.1.0:Data.Monoid
+                         base-4.11.1.0:Data.Semigroup.Internal base-4.11.1.0:GHC.Generics
+                         base-4.11.1.0:GHC.IO.Exception
+import  -/  base-4.11.1.0:GHC.Base 604111500e81281298777e721c75643b
+import  -/  base-4.11.1.0:Prelude 0750c25585e2b797cd78291d423d39dd
+import  -/  base-4.11.1.0:System.IO 1c239be44126f7b1ba512ea61300f4dc
+import  -/  ghc-prim-0.5.2.0:GHC.Types d9b3023de7feae4a5308d643da5543f7
+29e0b97f6bd1ae1dd28f759e89a08e1f
+  $trModule :: GHC.Types.Module
+  {- HasNoCafRefs, Strictness: m,
+     Unfolding: (GHC.Types.Module Hello.$trModule3 Hello.$trModule1) -}
+7879233bedfc98b382449e71fffc441c
+  $trModule1 :: GHC.Types.TrName
+  {- HasNoCafRefs, Strictness: m1,
+     Unfolding: (GHC.Types.TrNameS Hello.$trModule2) -}
+57c61b0ea1a1a31353fea0a1fd333b28
+  $trModule2 :: GHC.Prim.Addr#
+  {- HasNoCafRefs, Unfolding: ("Hello"#) -}
+3a1e5b0419dd116e8c07320800160f6f
+  $trModule3 :: GHC.Types.TrName
+  {- HasNoCafRefs, Strictness: m1,
+     Unfolding: (GHC.Types.TrNameS Hello.$trModule4) -}
+d5aae33670196c7ee9874bbde0e36ff0
+  $trModule4 :: GHC.Prim.Addr#
+  {- HasNoCafRefs, Unfolding: ("main"#) -}
+81948b083bdb3cb548b728d508488045
+  sayHello :: GHC.Base.String -> GHC.Types.IO ()
+  {- Arity: 1, Strictness: <L,1*U>,
+     Unfolding: InlineRule (0, True, True)
+                Hello.sayHello1
+                  `cast`
+                (<GHC.Base.String>_R ->_R Sym (GHC.Types.N:IO[0] <()>_R)) -}
+c4a0de93274ef07befdf7bdd710019ae
+  sayHello1 ::
+    GHC.Base.String
+    -> GHC.Prim.State# GHC.Prim.RealWorld
+    -> (# GHC.Prim.State# GHC.Prim.RealWorld, () #)
+  {- Arity: 1, Strictness: <L,1*U>,
+     Unfolding: (\ (name :: GHC.Base.String) ->
+                 GHC.IO.Handle.Text.hPutStr2
+                   GHC.IO.Handle.FD.stdout
+                   (GHC.CString.unpackAppendCString#
+                      Hello.sayHello4
+                      (GHC.Base.++ @ GHC.Types.Char name Hello.sayHello2))
+                   GHC.Types.True) -}
+0cf6e7ad7e10200d896ada2f960a4562
+  sayHello2 :: [GHC.Types.Char]
+  {- Unfolding: (GHC.CString.unpackCString# Hello.sayHello3) -}
+f4afd8fe3819b200ce0c7b421cc1abb6
+  sayHello3 :: GHC.Prim.Addr#
+  {- HasNoCafRefs, Unfolding: ("!"#) -}
+466f7bf9c651ec1f19fedb742fa059ac
+  sayHello4 :: GHC.Prim.Addr#
+  {- HasNoCafRefs, Unfolding: ("Hi, "#) -}
+vectorised variables:
+vectorised tycons:
+vectorised reused tycons:
+parallel variables:
+parallel tycons:
+trusted: safe
+require own pkg trusted: False
+

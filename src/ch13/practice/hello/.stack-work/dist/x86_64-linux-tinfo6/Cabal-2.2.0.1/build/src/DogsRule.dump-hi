@@ -1,0 +1,92 @@
+
+==================== FINAL INTERFACE ====================
+2019-06-23 12:25:54.552979313 UTC
+
+interface hello-0.1.0.0-CH2ARFUwJag5y9ns449U7A:DogsRule 8043
+  interface hash: b6782b373bc66cb8259fdbf99465eacb
+  ABI hash: c8482cd8b57c9952472df9096263bd55
+  export-list hash: ae349704503361bc398fc73124f06a70
+  orphan hash: 693e9af84d3dfcc71e640e005bdc5e2e
+  flag hash: c95faa93f756e0e2e33ff3c4d8e33e20
+  opt_hash: 14e536840aca4e889cad654e6f9b79c1
+  hpc_hash: 93b885adfe0da089cdf634904fd59f71
+  sig of: Nothing
+  used TH splices: False
+  where
+exports:
+  DogsRule.dogs
+module dependencies:
+package dependencies: base-4.11.1.0* ghc-prim-0.5.2.0
+                      integer-gmp-1.0.2.0
+orphans: base-4.11.1.0:GHC.Float base-4.11.1.0:GHC.Base
+family instance modules: base-4.11.1.0:Control.Applicative
+                         base-4.11.1.0:Data.Functor.Const
+                         base-4.11.1.0:Data.Functor.Identity base-4.11.1.0:Data.Monoid
+                         base-4.11.1.0:Data.Semigroup.Internal base-4.11.1.0:GHC.Generics
+                         base-4.11.1.0:GHC.IO.Exception
+import  -/  base-4.11.1.0:Prelude 0750c25585e2b797cd78291d423d39dd
+import  -/  base-4.11.1.0:System.IO 1c239be44126f7b1ba512ea61300f4dc
+import  -/  ghc-prim-0.5.2.0:GHC.Types d9b3023de7feae4a5308d643da5543f7
+ffdb61cc1630ad63a5041ff221462847
+  $trModule :: GHC.Types.Module
+  {- HasNoCafRefs, Strictness: m,
+     Unfolding: (GHC.Types.Module
+                   DogsRule.$trModule3
+                   DogsRule.$trModule1) -}
+b377fb5ad76e9a2ea059a77e4f10f010
+  $trModule1 :: GHC.Types.TrName
+  {- HasNoCafRefs, Strictness: m1,
+     Unfolding: (GHC.Types.TrNameS DogsRule.$trModule2) -}
+cc500ea67d431e05ad9cc2c2598219ce
+  $trModule2 :: GHC.Prim.Addr#
+  {- HasNoCafRefs, Unfolding: ("DogsRule"#) -}
+9885b1ec90447137b6ee0f1fb95fe0eb
+  $trModule3 :: GHC.Types.TrName
+  {- HasNoCafRefs, Strictness: m1,
+     Unfolding: (GHC.Types.TrNameS DogsRule.$trModule4) -}
+c6fe45edbf10a6c11a98efeda0c15936
+  $trModule4 :: GHC.Prim.Addr#
+  {- HasNoCafRefs,
+     Unfolding: ("hello-0.1.0.0-CH2ARFUwJag5y9ns449U7A"#) -}
+3487bcaae3728da3546de90ea12f99a5
+  dogs :: GHC.Types.IO ()
+  {- Arity: 1, Strictness: <S,U>,
+     Unfolding: InlineRule (0, True, True)
+                DogsRule.dogs1 `cast` (Sym (GHC.Types.N:IO[0] <()>_R)) -}
+21b0cb75cfd70612ecd3a92a1aaa8384
+  dogs1 ::
+    GHC.Prim.State# GHC.Prim.RealWorld
+    -> (# GHC.Prim.State# GHC.Prim.RealWorld, () #)
+  {- Arity: 1, Strictness: <S,U>,
+     Unfolding: (\ (s :: GHC.Prim.State# GHC.Prim.RealWorld) ->
+                 case GHC.IO.Handle.Text.hPutStr2
+                        GHC.IO.Handle.FD.stdout
+                        DogsRule.dogs4
+                        GHC.Types.True
+                        s of ds1 { (#,#) ipv ipv1 ->
+                 GHC.IO.Handle.Text.hPutStr2
+                   GHC.IO.Handle.FD.stdout
+                   DogsRule.dogs2
+                   GHC.Types.True
+                   ipv }) -}
+7d77140b0fffbea8da5d48cc5db7a41d
+  dogs2 :: [GHC.Types.Char]
+  {- Unfolding: (GHC.CString.unpackCString# DogsRule.dogs3) -}
+c11407ab4d8d0bf8461d265095e6102e
+  dogs3 :: GHC.Prim.Addr#
+  {- HasNoCafRefs, Unfolding: ("To this"#) -}
+6f6802acd02156c3426273ffa8b4e1c3
+  dogs4 :: [GHC.Types.Char]
+  {- Unfolding: (GHC.CString.unpackCString# DogsRule.dogs5) -}
+3b946759b0d58f12c63026ad5314196d
+  dogs5 :: GHC.Prim.Addr#
+  {- HasNoCafRefs,
+     Unfolding: ("Changing the message they print in the book"#) -}
+vectorised variables:
+vectorised tycons:
+vectorised reused tycons:
+parallel variables:
+parallel tycons:
+trusted: safe
+require own pkg trusted: False
+
