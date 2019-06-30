@@ -15,10 +15,10 @@ My solutions to the Haskell Programming from first principles book (A.K.A "Haske
 - Chapter 12: Signaling adversity (inc. Maybe, Either, higher-kindedness, etc.)
 - Chapter 13: Modules and Projects (inc. Stack and Cabal)
 - Chapter 14: Testing (inc. hspec, QuickCheck, etc.)
+- Chapter 15: Monoid and Semigroup
 
 Yet to add:
 
-- Chapter 15: Monoid and Semigroup
 - Chapter 16: Functor
 - Chapter 17: Applicative
 - Chapter 18: Monad
