@@ -4,15 +4,30 @@ import Data.Monoid
 import OptionalMonoid
 import Test.QuickCheck
 
+-- data Optional a =
+--     Nada
+--   | Only a
+
 newtype First' a =
   First' { getFirst :: Optional a }
   deriving (Eq, Show)
 
+
 instance Semigroup (First' a) where
   (<>) = undefined
 
-instance Monoid (First' a) where
-  mempty = undefined
+instance Monoid a => Monoid (First' a) where
+  mempty  = First' Nada
+  -- MaybeAnotherMonoid.getFirst mempty  = Nada
+  -- mempty Nada = Nada
+  -- mappend = (<>)
+  -- mappend = First' $ (<>)
+
+  mappend (First' (Only x)) (First' Nada)     = First' (Only x)
+  mappend (First' Nada) (First' (Only y))     = First' (Only y)
+  mappend (First' Nada) (First' Nada)         = First' Nada
+  mappend (First' (Only x)) (First' (Only y)) = First' $ Only (x <> y)
+  -- mappend (First' ( Only x)) (First' ( Only y)) = First' (x <> y)
 
 firstMappend :: First' a -> First' a -> First' a
 firstMappend = mappend
