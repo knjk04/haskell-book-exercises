@@ -40,9 +40,9 @@ type BullMappend =
 -- fails on the left and right identity checks
 main :: IO ()
 main = do
-  let ma  = monoidAssoc
-      mli = monoidLeftIdentity
-      mri = monoidRightIdentity
+  let ma  = monoidAssoc -- succeeds
+      mli = monoidLeftIdentity -- fails 
+      mri = monoidRightIdentity -- fails
   quickCheck (ma  :: BullMappend) 
   quickCheck (mli :: Bull -> Bool) 
   quickCheck (mri :: Bull -> Bool) 
