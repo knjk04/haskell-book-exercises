@@ -11,7 +11,6 @@ monoidAssoc :: (Eq m, Monoid m) => m -> m -> m -> Bool
 monoidAssoc a b c =
   (a <> (b <> c)) == ((a <> b) <> c)
 
-
 -- testing left and right associativity
 monoidLeftIdentity :: (Eq m, Monoid m) => m -> Bool
 monoidLeftIdentity a = (mempty <> a) == a
@@ -47,4 +46,3 @@ main = do
   quickCheck (ma  :: BullMappend) 
   quickCheck (mli :: Bull -> Bool) 
   quickCheck (mri :: Bull -> Bool) 
-  
