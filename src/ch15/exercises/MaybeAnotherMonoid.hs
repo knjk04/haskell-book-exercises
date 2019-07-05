@@ -12,6 +12,11 @@ newtype First' a =
   First' { getFirst :: Optional a }
   deriving (Eq, Show)
 
+instance Arbitrary a => Arbitrary (First' a) where
+  arbitrary =
+    frequency [ (1, return Nada)
+              -- , (1, return Only a) ]
+              , (1, liftM Only) ]
 
 instance Semigroup (First' a) where
   (<>) = undefined
@@ -29,7 +34,8 @@ instance Monoid a => Monoid (First' a) where
   mappend (First' (Only x)) (First' (Only y)) = First' $ Only (x <> y)
   -- mappend (First' ( Only x)) (First' ( Only y)) = First' (x <> y)
 
-firstMappend :: First' a -> First' a -> First' a
+-- firstMappend :: First' a -> First' a -> First' a
+firstMappend :: Monoid a => First' a -> First' a -> First' a
 firstMappend = mappend
 
 type FirstMappend = First' String -> First' String -> First' String -> Bool
