@@ -3,6 +3,7 @@ module MaybeAnotherMonoid where
 import Data.Monoid
 import OptionalMonoid
 import Test.QuickCheck
+import Control.Monad
 
 -- data Optional a =
 --     Nada
@@ -12,11 +13,18 @@ newtype First' a =
   First' { getFirst :: Optional a }
   deriving (Eq, Show)
 
-instance Arbitrary a => Arbitrary (First' a) where
-  arbitrary =
-    frequency [ (1, return Nada)
-              -- , (1, return Only a) ]
-              , (1, liftM Only) ]
+-- instance Arbitrary a => Arbitrary (First' a) where
+--   arbitrary =
+--     frequency [ (1, return (First' Nada))
+--               , (1, liftM Only) ]
+
+genFirst' :: Arbitrary a => Gen (First' a)
+genFirst' = do
+  a <- arbitrary
+  -- frequency [ (1, return Nada)
+  frequency [ (1, return (First' Nada ))
+            , (1, return (First' a))]
+            -- , (1, return (Only a))]
 
 instance Semigroup (First' a) where
   (<>) = undefined
