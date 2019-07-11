@@ -3,7 +3,7 @@ module MaybeAnotherMonoid where
 import Data.Monoid
 import OptionalMonoid
 import Test.QuickCheck
-import Control.Monad
+-- import Control.Monad
 
 -- data Optional a =
 --     Nada
@@ -19,6 +19,8 @@ instance Arbitrary a => Arbitrary (First' a) where
     frequency [ (1, return $ First' Nada)
               , (9, return $ First' (Only x))]
 
+-- instance Monoid a => Semigroup (First' a) where
+  -- (<>) = mappend
 instance Semigroup (First' a) where
   (<>) = undefined
 
@@ -48,12 +50,14 @@ monoidAssoc a b c =
   (a <> (b <> c)) == ((a <> b) <> c)
 
 -- testing left and right associativity
+-- monoidLeftIdentity :: (Eq m, Monoid m, Show m) => m -> Bool
 monoidLeftIdentity :: (Eq m, Monoid m) => m -> Bool
 monoidLeftIdentity a = (mempty <> a) == a
 
 monoidRightIdentity :: (Eq m, Monoid m) => m -> Bool
 monoidRightIdentity a = (a <> mempty) == a
 
+-- compiles but errors
 main :: IO ()
 main = do
   quickCheck (monoidAssoc :: FirstMappend) 
