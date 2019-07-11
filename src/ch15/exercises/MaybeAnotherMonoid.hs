@@ -13,18 +13,11 @@ newtype First' a =
   First' { getFirst :: Optional a }
   deriving (Eq, Show)
 
--- instance Arbitrary a => Arbitrary (First' a) where
---   arbitrary =
---     frequency [ (1, return (First' Nada))
---               , (1, liftM Only) ]
-
-genFirst' :: Arbitrary a => Gen (First' a)
-genFirst' = do
-  a <- arbitrary
-  -- frequency [ (1, return Nada)
-  frequency [ (1, return (First' Nada ))
-            , (1, return (First' a))]
-            -- , (1, return (Only a))]
+instance Arbitrary a => Arbitrary (First' a) where
+  arbitrary = do
+    x <- arbitrary
+    frequency [ (1, return $ First' Nada)
+              , (9, return $ First' (Only x))]
 
 instance Semigroup (First' a) where
   (<>) = undefined
