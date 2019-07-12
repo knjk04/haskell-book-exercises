@@ -25,18 +25,28 @@ main = quickCheck (semigroupAssoc :: TrivAssoc)
 
 -- 2)
 
-newtype Identity a = Identity a deriving Eq
+newtype Identity a = Identity a deriving (Eq, Show)
 
 instance Semigroup a => Semigroup (Identity a) where
   (Identity a) <> (Identity b) = Identity (a <> b)
 
--- instance Arbitrary (Identity a) where
---   arbitrary = return 
+instance Arbitrary a => Arbitrary (Identity a) where
+  arbitrary = do
+    a <- arbitrary
+    return (Identity a)
 
 semigroupIdentityAssoc :: (Eq m, Semigroup m) => m -> m -> m -> Bool
 semigroupIdentityAssoc a b c = ((a <> b) <> c) == (a <> (b <> c))
 
-type IdentityAssoc a = (Identity a) -> (Identity a) -> (Identity a) -> Bool
+type IdentityAssoc = (Identity String) -> (Identity String) -> (Identity String) -> Bool
 
+-- type checks but never terminates
 main2 :: IO ()
-main2 = quickCheck (semigroupIdentityAssoc :: (IdentityAssoc a))
+main2 = quickCheck (semigroupIdentityAssoc :: (IdentityAssoc))
+
+-- 3)
+
+data Two a b = Two a b
+
+instance Semigroup (Two a b) (Two c d) where
+  (Two a b) <> (Two c d) = Two $ (a <> b) <> (c <> d) 
