@@ -202,8 +202,29 @@ newtype Mem s a =
     runMem :: s -> (a, s)
   }
 
-instance Semigroup a => Semigroup (Mem s a) where
-  (<>) = undefined
+instance Show (Mem s a) where
+  show (Mem _) = "Mem"
 
-instance Monoid a => Monoid (Mem s a) where
-  mempty = undefined
+instance (Semigroup a, Semigroup s) => Semigroup (Mem s a) where
+  -- (Mem s a) <> (Mem s' a') = (a <> a', s <> s')
+  -- (Mem s) <> (Mem s') = Mem ((runMem s) <> (runMem s'))
+  (Mem s) <> (Mem s') = Mem (s <> s')
+
+instance (Monoid a, Monoid s) => Monoid (Mem s a) where
+  mempty = Mem mempty
+
+
+f' = Mem $ \s -> ("hi", s + 1)
+
+-- doesn't compile
+
+-- main5 :: IO ()
+-- main5 = do
+--   let rmzero = runMem mempty 0
+--       rmleft = runMem (f' <> mempty) 0
+--       rmright = runMem (mempty <> f') 0
+--   print $ rmleft
+--   print $ rmright
+--   print $ (rmzero :: (String, Int))
+--   print $ rmleft == runMem f' (0 :: Int)
+--   print $ rmright == runMem f' 0
