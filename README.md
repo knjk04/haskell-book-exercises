@@ -16,10 +16,10 @@ My solutions to the Haskell Programming from first principles book (A.K.A "Haske
 - Chapter 13: Modules and Projects (inc. Stack and Cabal)
 - Chapter 14: Testing (inc. hspec, QuickCheck, etc.)
 - Chapter 15: Monoid and Semigroup
+- Chapter 16: Functor
 
 Yet to add:
 
-- Chapter 16: Functor
 - Chapter 17: Applicative
 - Chapter 18: Monad
 - Chapter 19: Applying structure 
