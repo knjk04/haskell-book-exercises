@@ -21,10 +21,11 @@ d =
   fmap ((return '1' ++) . show)
   (\x -> [x, 1..3])
 
+-- Taken from https://github.com/mvaldesdeleon/haskell-book/blob/master/ch16/exercises.lhs
 -- 5) Expected result:
 -- Prelude> e
 -- 3693
 e :: IO Integer
 e = let ioi = readIO "1" :: IO Integer
-        changed = read ("123" ++ ) show ioi
-    in (*3) changed
+        changed = fmap (read . ("123" ++ ) . show) ioi
+    in fmap (*3) changed
