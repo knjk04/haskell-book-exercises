@@ -40,14 +40,17 @@ maxed = max' <$> x <*> y'
 xs = [1, 2, 3]
 ys = [4, 5, 6]
 
+-- returns Just 6 
 x4 :: Maybe Integer
 x4 = lookup 3 $ zip xs ys
 
+-- returns Just 5
 y4 :: Maybe Integer
 y4 = lookup 2 $ zip xs ys
 
--- returns the 2nd element in the tuple
--- not sure if this is the expected behaviour
+-- need to make the following typecheck:
+-- summed = sum $  (,) x y
+
+-- should return Just 11  
 summed :: Maybe Integer
 summed = sum <$> ((,) <$> x4 <*> y4)
-
