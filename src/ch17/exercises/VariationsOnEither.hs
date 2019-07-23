@@ -1,5 +1,9 @@
 module VariationsOnEither where
 
+import Test.QuickCheck hiding (Failure, Success)
+import Test.QuickCheck.Checkers
+import Test.QuickCheck.Classes
+
 data Validation e a =
     Failure e
   | Success a
@@ -17,3 +21,17 @@ instance Monoid e => Applicative (Validation e) where
   Failure f <*> _ = Failure f
   _ <*> Failure x = Failure x
   (Success f) <*> (Success x) = Success $ f x
+
+instance (Eq e, Eq a) => EqProp (Validation e a) where
+  (=-=) e = eq e
+
+-- From https://github.com/CarlosMChica/HaskellBook/blob/master/chapter17/ValidationApplicative.hs
+instance (Arbitrary e, Arbitrary a) => Arbitrary (Validation e a) where
+  arbitrary = oneof [Failure <$> arbitrary, Success <$> arbitrary]
+
+-- From https://github.com/CarlosMChica/HaskellBook/blob/master/chapter17/ValidationApplicative.hs
+main :: IO ()
+main = do
+  let trigger :: Validation (String, String, String) (String, String, String)
+      trigger = undefined
+  quickBatch (applicative trigger)
