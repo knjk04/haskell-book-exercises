@@ -1,5 +1,8 @@
 module ChapterExercises where
 
+import Control.Monad (join)
+import Control.Applicative
+
 -- 1)
 
 data Nope a =
@@ -63,4 +66,56 @@ data List a =
 -- fmap :: Functor f => (a -> f b) -> f a -> f b
 instance Functor List where
   fmap _ Nil = Nil
-  -- fmap f (Cons a l) = Cons (f a) l
+  fmap f (Cons a l) = Cons (f a) (fmap f l)
+
+-- Not sure if this actually works
+instance Applicative List where
+  pure a = Cons a Nil
+  Nil <*> _ = Nil
+  _ <*> Nil = Nil
+  (Cons f g) <*> xs = fmap f xs `append` (g <*> xs)
+
+append :: List a -> List a -> List a
+append Nil ys = ys
+append (Cons x xs) ys =
+  Cons x $ xs `append` ys
+
+fold :: (a -> b -> b) -> b -> List a -> b
+fold _ b Nil = b
+fold f b (Cons h t) = f h (fold f b t)
+
+concat' :: List (List a) -> List a
+concat' = fold append Nil
+
+-- need to write using concat' and fmap
+flatMap :: (a -> List b)
+        -> List a
+        -> List b
+flatMap f as = concat' $ f <$> as        
+
+----- *** "Write the following functions using the methods provided by Monad and
+----- Functor." Allowed to use identity and composition, but it must typecheck
+----- with the types provided ***
+
+-- 1) 
+j :: Monad m => m (m a) -> m a
+j m = join m
+
+-- 2)
+l1 :: Monad m => (a -> b) -> m a -> m b
+l1 f a = f <$> a
+
+-- 3)
+l2 :: Monad m
+   => (a -> b -> c) -> m a -> m b -> m c
+l2 f a b = f <$> a <*> b
+
+-- 4) need to use recursion
+-- Broken :(
+meh :: Monad m
+    => [a] -> (a -> m b) -> m [b]
+meh [] f = pure []
+meh (x : xs) f = ((pure x) >>= f) >> (meh xs f)
+
+-- 5) reuse meh
+-- can't until I've fixed meh 
