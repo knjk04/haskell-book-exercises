@@ -37,6 +37,8 @@ library
                 , time
                 , QuickCheck
                 , checkers
+                , scotty
+                , xmonad
   default-language: Haskell2010
 
 executable haskell-first-principles-exe

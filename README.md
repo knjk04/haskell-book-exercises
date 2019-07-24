@@ -19,10 +19,10 @@ My solutions to the Haskell Programming from first principles book (A.K.A "Haske
 - Chapter 16: Functor
 - Chapter 17: Applicative
 - Chapter 18: Monad
+- Chapter 19: Applying structure 
 
 Yet to add:
 
-- Chapter 19: Applying structure 
 - Chapter 20: Foldable
 - Chapter 21: Traversable
 - Chapter 22: Reader
