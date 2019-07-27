@@ -31,9 +31,27 @@ elem' y xs = getAny ( foldMap (\x -> Any $ x == y) xs :: Any)
 
 -- 4) minimum :: (Foldable t, Ord a) => t a -> Maybe a
 
-minimum' :: (Foldable t, Ord a) => t a -> Maybe a
+-- minimum' :: (Foldable t, Ord a) => t a -> Maybe a
 -- minimum' n = foldMap (\x -> min x n == n) n
 -- minimum' n = foldr (\x -> if min x n == n then Just else Just) Just n
 -- minimum' n = foldMap (\x -> if min x n == n then Just else Just) n
 -- minimum' = undefined
 
+-- minimum' xs = foldMap min xs
+-- minimum' xs = foldMap (\x y -> if x > y then Just x else Just y) xs
+
+-- minimum' xs
+--   | null xs = Nothing
+--   | otherwise = foldMap (\x y -> if x > y then Just x else Just y) xs
+
+-- minimum' xs =
+
+-- 5) maximum :: (Foldable t, Ord a) => t a -> Maybe a
+
+-- 6) null :: (Foldable t) => t a -> Bool
+null' :: (Foldable t) => t a -> Bool
+null' xs = getAll (foldMap (\_ -> All False) xs :: All)
+
+-- 7) length :: (Foldable t) => t a -> Int
+length' :: (Foldable t) => t a -> Int
+length' xs = getSum (foldMap (\_ -> 1) xs :: Sum Int)
