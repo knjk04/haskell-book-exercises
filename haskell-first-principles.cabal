@@ -38,6 +38,7 @@ library
                 , QuickCheck
                 , checkers
                 , scotty
+                , wreq
   default-language: Haskell2010
 
 executable haskell-first-principles-exe

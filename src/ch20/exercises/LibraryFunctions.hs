@@ -55,3 +55,27 @@ null' xs = getAll (foldMap (\_ -> All False) xs :: All)
 -- 7) length :: (Foldable t) => t a -> Int
 length' :: (Foldable t) => t a -> Int
 length' xs = getSum (foldMap (\_ -> 1) xs :: Sum Int)
+
+-- 8) toList :: (Foldable t) => t a -> [a]
+toList' :: (Foldable t) => t a -> [a]
+-- toList' x = foldr (:) [] x -- this also works
+toList' x = foldMap (: []) x
+
+-- 9) Hint: use foldMap
+-- | Combine the elements
+--   of a structure using a monoid
+-- fold :: (Foldable t, Monoid m) => t m -> m
+
+-- Prelude> xs = map Sum [1..5]
+-- Prelude> fold' xs 
+fold' :: (Foldable t, Monoid m) => t m -> m
+fold' xs = foldMap (<> mempty) xs
+
+-- 10) define foldMap using foldr
+foldMap' :: (Foldable t, Monoid m) => (a -> m) -> t a -> m
+-- foldMap' f ta = foldr f mempty ta
+-- foldMap' f ta = foldr (<> f) mempty ta
+foldMap' = undefined
+
+
+foldMap' f ta = foldMap f ta -- works but need to use foldr
