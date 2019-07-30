@@ -20,7 +20,6 @@ instance Functor Identity where
 instance Foldable Identity where
   foldMap f (Identity a) = f a
 
-
 -- *** CHECK THIS ONE WORKS ***
 
 -- traverse :: Applicative f => (a -> f b) -> t a -> f (t b)
@@ -143,3 +142,28 @@ instance ( Functor n
 
 -- main =
 --   sample' (arbitrary :: Gen (S [] Int))
+
+-- *** instances for Tree ***
+data Tree a =
+    Empty
+  | Leaf a
+  | Node (Tree a) a (Tree a)
+  deriving (Eq, Show)
+
+instance Functor Tree where
+  fmap _ Empty = Empty
+  fmap f (Leaf a) = Leaf $ f a
+  fmap f (Node a b c) = Node (fmap f a) (f b) (fmap f c)
+
+instance Foldable Tree where
+  foldMap f Empty = mempty
+  foldMap f (Leaf a) = f a
+  -- foldMap f (Node a b c) = Node (a) (f b) (f c)
+  -- foldMap f (Node a b c) = Node <$> (foldMap f a) <*> (f b) <*> (foldMap f c)
+  -- foldMap f (Node a b c) = f c
+  foldMap f (Node a b c) = (foldMap f a) <> f b <> (foldMap f c)
+
+instance Traversable Tree where
+  traverse _ Empty = pure Empty
+  traverse f (Leaf a) = Leaf <$> f a
+  traverse f (Node a b c) = Node <$> (traverse f a) <*> f b <*> (traverse f c)
