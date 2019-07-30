@@ -1,7 +1,12 @@
+{-# LANGUAGE FlexibleContexts #-}
+
 module ChapterExercises where
 
+import Test.QuickCheck
+import Test.QuickCheck.Checkers
+
 -- "write a Traversable instance for the datatype provided, filling in any required superclasses
--- Use QuickCheck to validate your instances
+-- Use QuickCheck to validate your instances"
 
 -- *** Identity ***
 
@@ -78,7 +83,63 @@ data Three a b c =
   Three a b c
 
 instance Functor (Three a b) where
-  -- fmap f (Three a b c) = Three $ a b (f c)
-  -- fmap f (Three _ _ c) = Three $ _ _ (f c)
-  -- fmap f (Three _ _ c) = Three $ f c
   fmap f (Three a b c) = Three a b (f c)
+
+instance Foldable (Three a b) where
+  foldMap f (Three a b c) = f c
+
+instance Traversable (Three a b) where
+  traverse f (Three a b c) = Three a b <$> f c
+
+-- *** Pair ***
+data Pair a b =
+  Pair a b
+
+instance Functor (Pair a) where
+  fmap f (Pair a b) = Pair a (f b)
+
+instance Foldable (Pair a) where
+  foldMap f (Pair _ b) = f b
+
+instance Traversable (Pair a) where
+  traverse f (Pair a b) = Pair a <$> f b
+
+-- *** Big ***
+-- "when you have more than value of type b, you'll want to use Monoid and Applicative for the
+-- Foldable and Traversable instances"
+data Big a b =
+  Big a b b
+
+instance Functor (Big a) where
+  fmap f (Big a b b') = Big a (f b) (f b)
+
+instance Foldable (Big a) where
+  foldMap f (Big _ b b') = f b <> f b'
+
+instance Traversable (Big a) where
+  traverse f (Big a b b') = Big a <$> f b <*> f b'
+
+-- *** S ***
+
+data S n a = S (n a) a deriving (Eq, Show)
+
+instance ( Functor n
+         , Arbitrary (n a)
+         , Arbitrary a )
+        => Arbitrary (S n a) where
+  arbitrary =
+    S <$> arbitrary <*> arbitrary
+
+-- instance ( Applicative n
+--          , Testable (n Property)
+--          , Eq a
+--          , Eq (n a)
+--          , EqProp a)
+--         => EqProp (S n a) where
+--   (=-=) = eq
+
+-- instance Traversable n => Traversable (S n) where
+--   traverse = undefined
+
+-- main =
+--   sample' (arbitrary :: Gen (S [] Int))

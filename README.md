@@ -21,10 +21,10 @@ My solutions to the Haskell Programming from first principles book (A.K.A "Haske
 - Chapter 18: Monad
 - Chapter 19: Applying structure 
 - Chapter 20: Foldable
+- Chapter 21: Traversable
 
 Yet to add:
 
-- Chapter 21: Traversable
 - Chapter 22: Reader
 - Chapter 23: State
 - Chapter 24: Parsers

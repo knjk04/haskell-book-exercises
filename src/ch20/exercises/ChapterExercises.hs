@@ -13,8 +13,15 @@ data Constant a b =
 
 -- Prelude>   foldMap (+2) (Constant 4) :: Sum Int
 instance Foldable (Constant a) where
-  -- foldMap f (Constant b) = f b
-  foldMap f (Constant _) = mempty
+  foldMap f (Constant b) = f b
+
+-- not an exercise, but just for practice
+data Constant' a b =
+  Constant' a
+  deriving Show
+
+instance Foldable (Constant' a) where
+  foldMap _ _ = mempty
 
 -- 2)
 data Two a b =
