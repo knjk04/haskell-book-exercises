@@ -17,9 +17,14 @@ fmapped :: [Char] -> [Char]
 fmapped = fmap rev cap
 
 -- 3) need to use an Applicative using do notation
--- tupled :: [Char] -> ([Char], [Char])
--- tupled xs = do
---   let capped   = cap xs
---   let reversed = rev xs
---   return (capped, reversed)
-  -- return (cap xs , rev xs)
+tupled :: [Char] -> ([Char], [Char])
+tupled = do
+  capped <- cap
+  reversed <- rev
+  return (capped, reversed)
+
+-- return results of cap and rev as a tuple
+-- need to make the function monadic using >>=
+tupled' :: [Char] -> ([Char], [Char])
+tupled' str = (modifyStr rev, modifyStr cap)
+  where modifyStr capOrRev = (pure str) >>= (pure $ capOrRev str)
