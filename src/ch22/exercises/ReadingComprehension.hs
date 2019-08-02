@@ -1,5 +1,4 @@
 {-# LANGUAGE InstanceSigs #-}
-
 module ReadingComprehension where
 
 newtype Reader r a =
@@ -35,3 +34,7 @@ instance Functor (Reader r) where
 --   (Reader rab) <*> (Reader ra) =
 --     -- Reader $ \r -> ???
 --     Reader $ \r -> undefined
+myLiftA2 :: Applicative f =>
+            (a -> b -> c)
+         -> f a -> f b -> f c
+myLiftA2 f a b = f <$> a <*> b

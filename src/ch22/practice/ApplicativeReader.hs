@@ -1,5 +1,7 @@
 module ApplicativeReader where
 
+import Control.Applicative (liftA2)
+
 newtype HumanName =
   HumanName String
   deriving (Eq, Show)
@@ -48,8 +50,8 @@ getDogR =
   Dog <$> dogName <*> address
 
 -- with Reader, alternate way using liftA2
-import Control.Applicative (liftA2)
 
+-- liftA2 :: Applicative f => (a -> b -> c) -> f a -> f b -> f c
 getDogR' :: Person -> Dog
 getDogR' =
   liftA2 Dog dogName address
