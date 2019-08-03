@@ -8,12 +8,7 @@ asks :: (r -> a) -> Reader r a
 asks f = Reader f
 
 instance Functor (Reader r) where
-  -- fmap f (Reader a) = undefined
-  -- fmap f (Reader a) = Reader $ f a
-  -- fmap f (Reader r) = Reader $ f a
-
-  fmap f (Reader r) = Reader $ f a
-    where a = runReader r
+  fmap f (Reader r) = Reader $ fmap f r
 
 -- -- "To write the Applicative instance for Reader, we’ll use an
 -- -- extension called InstanceSigs. It’s an extension we need
