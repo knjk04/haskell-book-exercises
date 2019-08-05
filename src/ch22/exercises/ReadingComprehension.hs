@@ -18,17 +18,15 @@ instance Functor (Reader r) where
 -- -- it’s not usually necessary to assert the types in instances
 -- -- anyway. We did this for the sake of clarity, to make the
 -- -- Reader type explicit in our signatures."
--- instance Applicative (Reader r) where
---   pure :: a -> Reader r a
---   -- pure a = Reader $ ???
---   pure a = Reader id 
+instance Applicative (Reader r) where
+  pure :: a -> Reader r a
+  pure a = Reader (\_ -> a) 
 
---   (<*>) :: Reader r (a -> b)
---         -> Reader r a
---         -> Reader r b
---   (Reader rab) <*> (Reader ra) =
---     -- Reader $ \r -> ???
---     Reader $ \r -> undefined
+  (<*>) :: Reader r (a -> b)
+        -> Reader r a
+        -> Reader r b
+  (Reader rab) <*> (Reader ra) =
+    Reader $ \r -> (rab r (ra r))
 myLiftA2 :: Applicative f =>
             (a -> b -> c)
          -> f a -> f b -> f c
