@@ -22,4 +22,13 @@ barPlus r = (foo r, length r)
 
 -- more compact than above
 frooty :: Num a => [a] -> ([a], Int)
-frooty r = bar 
+frooty r = bar (foo r) r
+
+frooty' :: Num a => [a] -> ([a], Int)
+frooty' = \r -> bar (foo r) r
+
+-- abstracted out so that it is not specific to foo and bar
+fooBind :: (r -> a)
+        -> (a -> r -> t)
+        -> (r -> b)
+fooBind m k = \r -> k (m r) r 
