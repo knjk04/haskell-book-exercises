@@ -31,5 +31,32 @@ x1 = (,) <$> xs <*> ys
 x2 :: Maybe (Integer, Integer)
 x2 = (,) <$> ys <*> zs
 
-x3 :: Maybe (Integer, Integer)
-x3 = (,) <$> ys <*> zs
+x3 :: Integer -> Maybe (Integer, Integer)
+x3 n = (,) <$> l <*> l
+  where l = z' n
+
+-- need to use uncurry
+-- first argument is a function, addition in this case
+summed :: Num c => (c, c) -> c
+summed = uncurry (+)
+
+-- lifts a boolean function over two partially applied functions
+bolt :: Integer -> Bool
+bolt n = (n > 3) && (n < 8)
+
+main :: IO ()
+main = do
+  print $
+    sequenceA [Just 3, Just 2, Just 1]
+
+  print $ sequenceA [x, y]
+  print $ sequenceA [xs, ys]
+  print $ sequenceA [(>3), (<8), even] 7
+
+  print $ summed <$> ((,) <$> xs <*> ys)
+  print $ fmap summed ((,) <$> xs <*> zs)
+  print $ bolt 7
+  print $ fmap bolt z
+
+sequA :: Integral a => a -> [Bool]
+sequA m = sequenceA [(>3), (<8), even] m
