@@ -46,17 +46,26 @@ bolt n = (n > 3) && (n < 8)
 
 main :: IO ()
 main = do
-  print $
-    sequenceA [Just 3, Just 2, Just 1]
+  -- print $
+  --   sequenceA [Just 3, Just 2, Just 1]
 
-  print $ sequenceA [x, y]
-  print $ sequenceA [xs, ys]
-  print $ sequenceA [(>3), (<8), even] 7
+  -- print $ sequenceA [x, y]
+  -- print $ sequenceA [xs, ys]
+  -- print $ sequenceA [(>3), (<8), even] 7
 
-  print $ summed <$> ((,) <$> xs <*> ys)
-  print $ fmap summed ((,) <$> xs <*> zs)
-  print $ bolt 7
-  print $ fmap bolt z
+  -- print $ summed <$> ((,) <$> xs <*> ys)
+  -- print $ fmap summed ((,) <$> xs <*> zs)
+  -- print $ bolt 7
+  -- print $ fmap bolt z
+
+  print $ foldr (&&) True (sequA 6) -- q1
+  print $ foldr (&&) True (sequA 7) -- q1
+
+  print $ sequA (fromMaybe 0 s') -- q2
+  print $ bolt (fromMaybe 0 ys) -- q3
 
 sequA :: Integral a => a -> [Bool]
 sequA m = sequenceA [(>3), (<8), even] m
+
+s' :: Maybe Integer
+s' = summed <$> ((,) <$> xs <*> ys)

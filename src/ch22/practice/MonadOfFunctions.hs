@@ -29,6 +29,6 @@ frooty' = \r -> bar (foo r) r
 
 -- abstracted out so that it is not specific to foo and bar
 fooBind :: (r -> a)
-        -> (a -> r -> t)
+        -> (a -> r -> b)
         -> (r -> b)
 fooBind m k = \r -> k (m r) r 
