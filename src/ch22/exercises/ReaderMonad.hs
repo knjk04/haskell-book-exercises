@@ -22,22 +22,12 @@ myLiftA2 :: Applicative f =>
          -> f a -> f b -> f c
 myLiftA2 f a b = f <$> a <*> b
 
+-- taken from https://github.com/Cake42/haskell-programming-from-first-principles/blob/master/22/reader-monad.hs
 instance Monad (Reader r) where
   return = pure
-
   -- (>>=) :: (r -> a) -> (a -> r -> b) -> (r -> b)
   (>>=) :: Reader r a
         -> (a -> Reader r b)
         -> Reader r b
   (Reader ra) >>= aRb =
-    -- Reader $ \r -> (aRb (ra r) r)
-    -- Reader $ \r -> (aRb (ra r))
-    -- Reader $ \r -> (Reader (flip aRb)) <*> (Reader ra)
-
-    -- Reader $ \r -> ((flip aRb) r (ra r)) 
-
-    -- (\r -> aRb (ra r))
-
-    -- Reader $ r -> ra (r) (ra r) -- too funky
-
-    Reader $ \r -> undefined
+    Reader $ \r -> (runReader $ aRb $ ra r) r
