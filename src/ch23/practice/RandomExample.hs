@@ -1,4 +1,4 @@
-module ThrowDown where
+module RandomExample where
 
 import System.Random
 
