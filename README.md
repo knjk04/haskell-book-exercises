@@ -30,7 +30,7 @@ Yet to add:
 - Chapter 24: Parsers
 - Chapter 25: Composing types
 - Chapter 26: Monad Transformers
-- Chapter 27: Non-strictnes
+- Chapter 27: Non-strictness
 - Chapter 28: Performance and data structures
 - Chapter 29: IO
 - Chapter 30: Exceptions
