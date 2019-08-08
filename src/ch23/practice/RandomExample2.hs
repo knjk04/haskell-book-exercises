@@ -56,11 +56,31 @@ rollDie1' :: State StdGen Die
 rollDie1' =
   intToDie <$> state (randomR (1, 6))
 
+-- Prelude> evalState rollDieThreeTimes' (mkStdGen 0)
 rollDieThreeTimes'
   :: State StdGen (Die, Die, Die)
 rollDieThreeTimes' =
   liftA3 (,,) rollDie1 rollDie1 rollDie1
 
 -- repeat :: a -> [a]
+-- this is not what we want
+-- this repeats a single die value, not repeating the state action that makes a die
 infiniteDie :: State StdGen [Die]
 infiniteDie = repeat <$> rollDie1 
+
+nDie :: Int -> State StdGen [Die]
+nDie n = replicateM n rollDie1'
+
+-- keep rolling one die until we reach or exceed a sum of 20
+rollsToGetTwenty :: StdGen -> Int
+rollsToGetTwenty g = go 0 0 g
+  where
+    go :: Int -> Int -> StdGen -> Int
+    go sum count gen
+      | sum >= 20 = count
+      | otherwise =
+
+        let (die, nextGen) =
+              randomR (1, 6) gen
+        in go (sum + die)
+              (count + 1) nextGen
