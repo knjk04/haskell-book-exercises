@@ -39,8 +39,9 @@ library
                 , checkers
                 , scotty
                 , wreq
-                , random
-                , transformers
+                -- , random
+                -- , transformers
+>>>>>>> 3ea872f4a8a8a6f2a82f99aa09b1af7f106fa589
   default-language: Haskell2010
 
 executable haskell-first-principles-exe
