@@ -62,6 +62,5 @@ rollsCountLogged n gen = go 0 0 gen []
 
         let (die, nextGen) =
               randomR (1, 6) gen
-        in go (sum + die)
-              (count + 1) nextGen (recordDie ++ [intToDie die])
+        in go ((count + 1) nextGen (recordDie ++ [intToDie die])
 

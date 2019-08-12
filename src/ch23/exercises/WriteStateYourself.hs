@@ -28,6 +28,7 @@ instance Applicative (Moi s) where
                 in (f' x, s')
 
 -- 3) write the Monad instance for State
+-- solution from https://github.com/CarlosMChica/HaskellBook/blob/master/chapter23/WriteStateYourself.hs
 instance Monad (Moi s) where
   return = pure
 
@@ -35,6 +36,5 @@ instance Monad (Moi s) where
         -> (a -> Moi s b)
         -> Moi s b
   (Moi f) >>= g =
-    -- undefined
     Moi $ \s -> let (x, s') = f s -- (x, s') :: (a, s)
-                in (g x, s')
+                in runMoi (g x) s'
