@@ -24,10 +24,6 @@ fizzBuzzFromTo from to | from == to = [""]
 
 -- mapM_ :: (Foldable t, Monad m) => (a -> m b) -> t a -> m ()
 -- execState :: State s a -> s -> s (in Control.Monad.Trans.State)
--- fizzBuzzList :: [Integer] -> [String]
--- fizzBuzzList list =
---   execState (mapM_ addResult list) []
-
 fizzBuzzList :: [Integer] -> [String]
 fizzBuzzList list =
   execState (mapM_ addResult list) []
@@ -39,10 +35,10 @@ addResult :: Integer -> State [String] ()
 addResult n = do
   xs <- get
   let result = fizzBuzzFromTo n (n+1)
-  put (result : [xs])
-  -- put (result : concat xs)
+  put $ concat (result : [xs])
+  -- put (result : xs)
            
--- main :: IO ()
--- main =
---   mapM_ putStrLn $
---     reverse $ fizzBuzzList [1..100]
+main :: IO ()
+main =
+  mapM_ putStrLn $
+    fizzBuzzList $ enumFromThenTo 100 99 1
