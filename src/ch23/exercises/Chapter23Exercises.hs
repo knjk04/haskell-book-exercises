@@ -2,6 +2,7 @@
 
 module Chapter23Exercises where
 
+-- runState :: State s a -> s -> (a, s)
 newtype State s a =
   State { runState :: s -> (a, s) }
 
@@ -46,8 +47,8 @@ get = State $ \s -> (s, s)
 -- 2) "Construct a State where the resulting state is the argument provided and the value is
 -- defaulted to unit"
 put :: s -> State s ()
--- put s = State $ \s -> ((), s)
-
--- put = undefined
+put s = State $ \_ -> ((), s)
 
 -- 3) "Run the State with s and get the state that results"
+exec :: State s a -> s -> s
+exec (State sa) s = snd $ runState (State sa) s
