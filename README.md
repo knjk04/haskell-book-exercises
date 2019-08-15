@@ -24,10 +24,10 @@ My solutions to the Haskell Programming from first principles book (A.K.A "Haske
 - Chapter 21: Traversable
 - Chapter 22: Reader
 - Chapter 23: State
+- Chapter 24: Parsers
 
 Yet to add:
 
-- Chapter 24: Parsers
 - Chapter 25: Composing types
 - Chapter 26: Monad Transformers
 - Chapter 27: Non-strictness

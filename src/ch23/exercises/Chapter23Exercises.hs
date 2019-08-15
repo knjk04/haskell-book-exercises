@@ -2,6 +2,7 @@
 
 module Chapter23Exercises where
 
+-- State :: (s -> (a, s)) -> State s a
 -- runState :: State s a -> s -> (a, s)
 newtype State s a =
   State { runState :: s -> (a, s) }
@@ -48,20 +49,36 @@ get = State $ \s -> (s, s)
 
 -- 2) "Construct a State where the resulting state is the argument provided and the value is
 -- defaulted to unit"
+-- Expected output:
+-- Prelude> runState (put "blah") "woot"
 put :: s -> State s ()
 put s = State $ \_ -> ((), s)
 
 -- 3) "Run the State with s and get the state that results"
+-- Expected output:
+-- Prelude> exec (put "wilma") "daphne"
+-- "wilma"
+-- Prelude> eval get "scooby papu"
+-- "scooby papu"
 exec :: State s a -> s -> s
 -- exec (State sa) s = snd $ runState (State sa) s
 exec ssa@(State sa) s = snd $ runState ssa s
 
 -- 4) "Run the State with s and get the value that results"
+-- Expected output:
+-- Prelude> eval get "bunnicula"
+-- "bunnicula"
+-- Prelude> eval get "stake a bunny"
+-- "stake a bunny
 eval :: State s a -> s -> a
 -- eval (State sa) s = fst $ runState (State sa) s
 eval ssa@(State sa) s = fst $ runState ssa s
 
 -- 5) "Write a function which applies a function to create a new State"
+-- Expected output:
+-- Prelude> runState (modify (+1)) 0
+-- ((), 1)
+-- Prelude> runState (modify (+1) >> modify (+1)) 0
+-- ((), 2)
 modify :: (s -> s) -> State s ()
--- modify f = undefined
-modify f = put f
+modify f = State $ \s -> ((), f s)
