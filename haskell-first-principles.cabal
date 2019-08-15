@@ -41,6 +41,7 @@ library
                 , wreq
                 -- , random
                 -- , transformers
+                , trifecta
   default-language: Haskell2010
 
 executable haskell-first-principles-exe
