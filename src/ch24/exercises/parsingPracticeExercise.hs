@@ -8,7 +8,7 @@ import Text.Trifecta
 stop :: Parser a
 stop = unexpected "stop"
 
-  -- "read a single character '1'"
+-- "read a single character '1'"
 one = char '1'
 
 -- read a character '1', then die
@@ -55,6 +55,16 @@ main = do
   pNL "q1OneTwo:"
   testParse q1OneTwo
 
+  pNL "q2:"
+  testParseString $ p123 "1"
+  testParseString $ p123 "12"
+  testParseString $ p123 "123"
+
+  pNL "q3:"
+  testParseString $ q3 "1"
+  testParseString $ q3 "12"
+  testParseString $ q3 "123"
+
 --------------------------------
 
 -- 1) "There’s a combinator that’ll let us mark that we expect
@@ -82,5 +92,14 @@ q1OneTwo = eof >> oneTwo >> stop
 -- Prelude> p123 "123"
 -- Success 123
 
--- p123 :: String -> 
--- p123 p = print $ parseString p mempty "123"
+testParseString :: Parser String -> IO ()
+testParseString p =
+  print $ parseString p mempty "123"
+
+p123 :: String -> Parser String
+p123 p = string p
+
+-- 3) make a Parser that does what String does using char
+q3 :: String -> Parser String
+q3 "" = stop
+q3 (x:xs) = char x >> q3 xs
