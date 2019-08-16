@@ -100,6 +100,6 @@ p123 :: String -> Parser String
 p123 p = string p
 
 -- 3) make a Parser that does what String does using char
+-- solution from https://github.com/Cake42/haskell-programming-from-first-principles/blob/master/24/parsing-practice/src/ParsingPractice.hs
 q3 :: String -> Parser String
-q3 "" = stop
-q3 (x:xs) = char x >> q3 xs
+q3 xs = mapM char xs
