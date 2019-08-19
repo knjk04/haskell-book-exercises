@@ -2,7 +2,8 @@
 
 module AltParsing where
 
-import Control>Applicative
+import Control.Applicative
+import Text.RawString.QQ
 import Text.Trifecta
 
 type NumberOrString =
@@ -16,18 +17,48 @@ abc
 def
 |]
 
+-- eitherOr :: String
+-- eitherOr = [r|123
+-- abc
+-- 456
+-- def
+-- |]
+
+-- eitherOr :: String
+-- eitherOr = [r|
+-- 123
+-- abc
+-- 456
+-- def|]
+
 a = "blah"
 b = "123"
 c = "123blah789"
 
+-- parseNos :: Parser NumberOrString
+-- parseNos =
+--       (Left <$> integer)
+ -- <|> (Right <$> some letter)
+
+-- parseNos :: Parser NumberOrString
+-- parseNos =
+--   skipMany (oneOf "\n")
+--   >>
+--       (Left <$> integer)
+--   <|> (Right <$> some letter)
+
 parseNos :: Parser NumberOrString
 parseNos =
+  skipMany (oneOf "\n")
+  >>
       (Left <$> integer)
   <|> (Right <$> some letter)
 
 main = do
   let p f i =
         parseString f mempty i
+
+  print $ p parseNos eitherOr
 
   print $ p (some letter) a
   print $ p integer b
