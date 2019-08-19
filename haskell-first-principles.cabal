@@ -42,6 +42,7 @@ library
                 -- , random
                 -- , transformers
                 , trifecta
+                , raw-strings-qq
   default-language: Haskell2010
 
 executable haskell-first-principles-exe
