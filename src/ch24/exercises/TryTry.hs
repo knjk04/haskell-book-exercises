@@ -18,16 +18,13 @@ integer2 = "202"
 
 integer3 = "0"
 
-integer4 = "(-17)"
-
-virtuousFraction = do
+parseFraction :: Parser Rational
+parseFraction = do
   numerator <- decimal
   char '/'
-
   denominator <- decimal
-  case denominator of
-    0 -> fail "Denominator cannot be zero"
-    _ -> return (numerator % denominator)
+  return (numerator % denominator)
+
 
 eitherOr :: String
 eitherOr = [r|
@@ -41,35 +38,23 @@ eitherOr = [r|
 
 --------------------------------------------------------
 
--- data IntegerOrFraction =
---     IntegerOrFraction Integer
---   | IntegerOrFraction Rational
-
 type IntegerOrFraction =
   -- Either Integer Rational
   Either Rational Integer 
 
 
-parseIoF :: Parser IntegerOrFraction
-parseIoF =
-  skipMany (oneOf "\n")
-  >>
-  --     (Left <$> integer)
-  -- <|> (Right <$> virtuousFraction) 
-      (Left <$> virtuousFraction)
-  <|> (Right <$> integer) 
+parseIntegerOrFraction :: Parser IntegerOrFraction
+parseIntegerOrFraction = try (Left <$> parseFraction) <|> (Right <$> integer) 
+
 
 main = do
   let p f i =
         parseString f mempty i
 
-  print $ p parseIoF frac1
-  print $ p parseIoF frac2
+  print $ p parseIntegerOrFraction eitherOr
 
-  print $ p parseIoF eitherOr
-
-  -- print $ p parseIoF integer1
-  -- print $ p parseIoF integer2
-  -- print $ p parseIoF integer3
-  -- print $ p parseIoF integer4
-
+  print $ parseString parseIntegerOrFraction mempty frac1
+  print $ parseString parseIntegerOrFraction mempty frac2
+  print $ parseString parseIntegerOrFraction mempty integer1
+  print $ parseString parseIntegerOrFraction mempty integer2
+  print $ parseString parseIntegerOrFraction mempty integer3
