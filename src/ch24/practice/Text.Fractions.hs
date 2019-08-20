@@ -59,8 +59,8 @@ virtuousFraction = do
 
 testVirtuous :: IO ()
 testVirtuous = do
-  let virtuousFraction' =
-        parseString virtuousFraction mempty
+  -- let virtuousFraction' =
+  --       parseString virtuousFraction mempty
   
   print $ virtuousFraction' badFraction
   print $ virtuousFraction' alsoBad
