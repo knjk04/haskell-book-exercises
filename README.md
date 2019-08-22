@@ -24,7 +24,7 @@ My solutions to the Haskell Programming from first principles book (A.K.A "Haske
 - Chapter 21: Traversable
 - Chapter 22: Reader
 - Chapter 23: State
-- Chapter 24: Parsers
+- Chapter 24: Parsers (but need to go back and do the chapter exercises)
 
 Yet to add:
 
