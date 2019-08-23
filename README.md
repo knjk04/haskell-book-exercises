@@ -25,10 +25,10 @@ My solutions to the Haskell Programming from first principles book (A.K.A "Haske
 - Chapter 22: Reader
 - Chapter 23: State
 - Chapter 24: Parsers (but need to go back and do the chapter exercises)
+- Chapter 25: Composing types
 
 Yet to add:
 
-- Chapter 25: Composing types
 - Chapter 26: Monad Transformers
 - Chapter 27: Non-strictness
 - Chapter 28: Performance and data structures

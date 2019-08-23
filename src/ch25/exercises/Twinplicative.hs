@@ -1,9 +1,8 @@
 {-# LANGUAGE InstanceSigs #-}
 module Twinplicative where
 
-{-# LANGUAGE InstanceSigs #-}
-
 newtype Compose f g a =
+  -- getCompose :: Compose f g a -> f (g a)
   Compose { getCompose :: f (g a) }
   deriving (Eq, Show)
 
@@ -19,4 +18,15 @@ instance (Applicative f, Applicative g) =>
   pure :: a -> Compose f g a
   pure = Compose . pure . pure
 
-  (<*>) = undefined
+
+  (<*>) :: Compose f g (a -> b)
+        -> Compose f g a
+        -> Compose f g b
+  -- (<*>) = undefined
+  -- (Compose f) <*> (Compose f') = Compose $ f (getCompose f')
+  -- (Compose f) <*> (Compose f') = Compose $ f . f'
+  -- (Compose f) <*> (Compose f') = getCompose f f'
+  -- (Compose f) <*> (Compose f') = Compose $ ((<*>) . (<*>)) f'
+  -- (Compose f) <*> (Compose f') = Compose $ f f'
+
+  -- (Compose f) <*> (Compose f') = Compose $ fmap f (Compose f')
