@@ -12,8 +12,8 @@ instance (Functor f, Functor g) =>
     Compose $ (fmap . fmap) f fga
 
 -- write the applicative instance
-instance (Applicative f, Applicative g) =>
-         Applicative (Compose f g) where
+instance (Applicative f, Applicative g)
+      => Applicative (Compose f g) where
   -- solution from https://github.com/Cake42/haskell-programming-from-first-principles/blob/master/25/Compose.hs
   pure :: a -> Compose f g a
   pure = Compose . pure . pure
